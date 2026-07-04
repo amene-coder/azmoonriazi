@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>سرزمین ریاضی ایران</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🌸 سرزمین ریاضی ایران 🌸</h1>
+
+<h2>آزمون هوشمند ریاضی پایه دوم دبستان</h2>
+
+<img src="images/arad.png" id="arad">
+
+<p>
+
+سلام دوست خوبم 🌸
+
+<br>
+
+به ماجراجویی ریاضی خوش آمدی.
+
+</p>
+
+<input
+type="text"
+id="studentName"
+placeholder="نام زیبایت را وارد کن">
+
+<br><br>
+
+<button id="startBtn">
+
+🚀 شروع ماجراجویی
+
+</button>
+<br><br>
+
+<p class="designer">
+طراحی و تولید:<br>
+آمنه صادق کاظمی<br>
+آموزگار پایه دوم دبستان
+</p>
+</div>
+<!-- صفحه آزمون -->
+
+<div id="quizBox" style="display:none;">
+<div class="quizHeader">
+
+
+<div>
+
+<h3 id="playerBox"></h3>
+
+<h3 id="scoreBox">⭐ امتیاز: ۰</h3>
+
+</div>
+
+</div>
+<h2 id="questionTitle"></h2>
+
+<div id="progressBar">
+
+<div id="progressFill"></div>
+
+</div>
+<p id="messageBox"></p>
+<div id="answers"></div>
+
+<br>
+
+
+</div>
+<div id="resultBox" style="display:none;">
+
+<h2>🏆  کارنامه ماجراجویی تو</h2>
+
+<p id="resultName"></p>
+
+<p id="resultScore"></p>
+
+<p id="resultMessage"></p>
+
+<button onclick="location.reload()">
+
+🔄 بازی دوباره
+
+</button>
+
+</div>
+<audio id="correctSound" src="sounds/correct.mp3"></audio>
+<script src="js/script.js"></script>
+
+</body>
+
+</html>
