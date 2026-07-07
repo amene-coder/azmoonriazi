@@ -5,6 +5,8 @@
 // عناصر صفحه
 const startBtn = document.getElementById("startBtn");
 const correctSound = document.getElementById("correctSound");
+const wrongSound = document.getElementById("wrongSound");
+let dragCount = 0;
 const container = document.querySelector(".container");
 const quizBox = document.getElementById("quizBox");
 const questionTitle = document.getElementById("questionTitle");
@@ -21,15 +23,21 @@ const resultMessage = document.getElementById("resultMessage");
 const questions = [
 
 {
-question:"فرشته‌ی کوچکم، بزرگترین عدد یک رقمی چند است؟",
-options:["۰","۱۰","۹","۱"],
-answer:2
+question:"🌸 دانشمند کوچک، درست یا نادرست بودن عبارت زیر را مشخص کن:<br><br>بزرگ‌ترین عدد یک‌رقمی، ۹ است.",
+options:["درست","نادرست"],
+answer:0
 },
 
 {
-question:"هشت بسته ده‌تایی منهای ...... بسته ده‌تایی می‌شود دو بسته ده‌تایی.",
-options:["۵","۶","۲","۱۰"],
+question:"🌸 دانشمند کوچک، درست یا نادرست بودن عبارت زیر را مشخص کن:<br><br>هشت بسته ده‌تایی منهای پنج بسته ده‌تایی، دو بسته ده‌تایی می‌شود.",
+options:["درست","نادرست"],
 answer:1
+},
+
+{
+question:"🌸 دانشمند کوچک، درست یا نادرست بودن عبارت زیر را مشخص کن:<br><br>عدد ۳۵۱ بین دو عدد ۳۵۰ و ۳۶۰ قرار دارد.",
+options:["درست","نادرست"],
+answer:0
 },
 
 {
@@ -39,8 +47,8 @@ answer:2
 },
 
 {
-question:"۲ سانتی‌متر و ۷ میلی‌متر برابر چند میلی‌متر است؟",
-options:["۷۲","۲۷","۲۷۰","۹"],
+question:"در شمارش ۴ تا ۴ تا، عدد قبل از ۱۶ چند است؟",
+options:["۲۰","۱۲","۱۰","۸"],
 answer:1
 },
 
@@ -57,8 +65,8 @@ answer:3
 },
 
 {
-question:"یک ربع مانده به ساعت ۱۲ یعنی:",
-options:["۱۱:۴۵","۱۱:۱۵","۱۲:۱۵","۱۲:۴۵"],
+question:"عدد بعدی در الگو چند است؟<br><br><span style='direction:ltr; display:inline-block;'>۱۲۰ ، ۱۲۳ ، ۱۲۶ ، ...</span>",
+options:["۱۲۹","۱۳۰","۱۳۶","۱۳۳"],
 answer:0
 },
 
@@ -75,36 +83,68 @@ answer:0
 },
 
 {
-question:"۴ بسته‌ی دوتایی پاک‌کن داریم. در مجموع چند پاک‌کن داریم؟",
-options:["۶","۴","۸","۱۰"],
-answer:2
-}
-,{
-    question:"🌸 ابتدا عبارت را انتخاب کن، سپس پاسخ مناسب آن را انتخاب کن.",
-
-    left:[
-        "۱۰ + ۲۰ + ۵ − ۱۰ + ۳",
-        "۷۰ − ۲۰ + ۸ − ۱۰",
-        "۵ + ۲۰ + ۳۰ + ۴ + ۱۰ − ۳۰ + ۴"
-    ],
-
-    right:[
-        "۴۳",
-        "۲۸",
-        "۴۸"
-    ],
-
-    pairs:[
+question:"🌸 نازنینم، ابتدا عبارت را انتخاب کن، سپس پاسخ مناسب آن را انتخاب کن.",
+left:[
+    "۱۰ + ۲۰ + ۵ − ۱۰ + ۳",
+    "۷۰ − ۲۰ + ۸ − ۱۰",
+    "۵ + ۲۰ + ۴ + ۱۰   + ۴"
+],
+right:[
+    "۴۳",
+    "۲۸",
+    "۴۸"
+],
+pairs:[
     [0,1],
     [1,2],
     [2,0]
 ]
-}
+},
+
+{
+question:"🌸 نازنینم، ابتدا عبارت را انتخاب کن، سپس پاسخ مناسب آن را انتخاب کن.",
+left:[
+    "یک ربع بعد از ساعت ۸:۲۰",
+    "نیم ساعت بعد از ساعت ۸:۱۰"
+],
+right:[
+    "۸:۳۵",
+    "۸:۴۰"
+],
+pairs:[
+    [0,0],
+    [1,1]
+]
+},
+{
+question:"🌸 نازنینم، ابتدا عبارت را انتخاب کن، سپس پاسخ مناسب آن را انتخاب کن.",
+
+left:[
+    "۵ سانتی‌متر و ۲ میلی‌متر",
+    "۱ سانتی‌متر و ۲ میلی‌متر",
+    "۲ سانتی‌متر و ۵ میلی‌متر"
+],
+
+right:[
+    "۱۲ میلی‌متر",
+    "۲۵ میلی‌متر",
+    "۵۲ میلی‌متر"
+],
+
+pairs:[
+    [0,2], // 52
+    [1,0], // 12
+    [2,1]  // 25
+]
+},
 ];
 
 // شماره سوال
 let currentQuestion = 0;
 let score = 0;
+
+
+const totalScore = 18;
 // شروع آزمون
 startBtn.onclick = function () {
 
@@ -131,6 +171,8 @@ function toPersianNumber(num){
 function showQuestion() {
 
     let q = questions[currentQuestion];
+    solvedPairs = [];
+selectedLeft = -1;
 progressFill.style.width = ((currentQuestion) / questions.length * 100) + "%";
    questionTitle.innerHTML =
 "سؤال " +
@@ -170,17 +212,15 @@ function checkAnswer(index){
         scoreBox.innerHTML =
         "⭐ امتیاز: " + toPersianNumber(score);
 
-        messageBox.innerHTML =
-        "🌸 آفرین! پاسخ درست است.";
-
-        messageBox.style.color = "green";
+        document.querySelectorAll(".answerBtn")[index]
+        .classList.add("correctAnswer");
 
     }else{
 
-        messageBox.innerHTML =
-        "❌ پاسخ نادرست بود.";
+         wrongSound.play();
 
-        messageBox.style.color = "red";
+        document.querySelectorAll(".answerBtn")[index]
+        .classList.add("wrongAnswer");
 
     }
 
@@ -212,7 +252,7 @@ function checkAnswer(index){
             "⭐ امتیاز: " +
             toPersianNumber(score) +
             " از " +
-            toPersianNumber(questions.length);
+            toPersianNumber(totalScore);
 
             if(score == questions.length){
 
@@ -239,7 +279,12 @@ function checkAnswer(index){
 function showDragQuestion(q){
 
     questionTitle.innerHTML =
-    "🌸 ابتدا عبارت را انتخاب کن، سپس پاسخ مناسب آن را انتخاب کن.";
+"سؤال " +
+toPersianNumber(currentQuestion+1) +
+" از " +
+toPersianNumber(13) +
+"<br><br>" +
+q.question;
 
     answers.innerHTML = `
 <div id="dragContainer">
@@ -271,9 +316,9 @@ function showDragQuestion(q){
 
     q.right.forEach(function(item,index){
 
-        rightHTML +=
-        `<button class="answerBtn"
-        onclick="selectRight(${index})">
+       rightHTML +=
+`<button class="dragBtn"
+onclick="selectRight(this, ${index})">
         ${item}
         </button>`;
 
@@ -302,48 +347,106 @@ if(solvedPairs.includes(index)){
 
     items[index].classList.add("selectedLeft");
 
+    items[index].style.pointerEvents = "none";
+items[index].style.opacity = "0.5";
 }
 
-function selectRight(index){
+function selectRight(btn, index){
 
-    if(selectedLeft==-1){
-
+    if(selectedLeft == -1){
         alert("🌸 ابتدا یک عبارت را انتخاب کن.");
-
         return;
-
     }
+
+    // ❌ جلوگیری از کلیک دوباره
+    if(btn.disabled) return;
 
     let q = questions[currentQuestion];
 
-let correct = false;
+    let correct = false;
 
-q.pairs.forEach(function(pair){
+    q.pairs.forEach(function(pair){
+        if(pair[0] == selectedLeft && pair[1] == index){
+            correct = true;
+        }
+    });
 
-    if(pair[0]==selectedLeft && pair[1]==index){
+    // ✔ قفل کردن دکمه بعد از کلیک
+    btn.disabled = true;
 
-        correct = true;
+    if(correct){
 
-    }
-
-});
-
-if(correct){
-
+        correctSound.play();
     solvedPairs.push({
+        left: selectedLeft,
+        right: index
+    });
 
-    left:selectedLeft,
+    score++;
+scoreBox.innerHTML =
+"⭐ امتیاز: " + toPersianNumber(score);
 
-    right:index
+    btn.classList.add("correctAnswer");
 
-});
+} else {
 
-    alert("🌸 آفرین! پاسخ درست است.");
-
-}else{
-
-    alert("🌸 این پاسخ درست نیست.");
-
+wrongSound.play();
+    btn.classList.add("wrongAnswer");
 }
 
+    // ✔ ریست انتخاب سمت چپ
+    selectedLeft = -1;
+
+    // ✔ شمارش پیشرفت
+    dragCount++;
+
+    if(dragCount === questions[currentQuestion].pairs.length){
+
+    setTimeout(function(){
+
+        currentQuestion++;
+        dragCount = 0;
+        selectedLeft = -1;
+        solvedPairs = [];
+
+        if(currentQuestion < questions.length){
+            showQuestion();
+        }else{
+
+            progressFill.style.width = "100%";
+            quizBox.style.display = "none";
+            resultBox.style.display = "block";
+
+            let student =
+            document.getElementById("studentName").value;
+
+            resultName.innerHTML =
+            "👦 نام دانش‌آموز: " + student;
+
+            resultScore.innerHTML =
+            "⭐ امتیاز: " +
+            toPersianNumber(score) +
+            " از " +
+            toPersianNumber(totalScore);
+
+            if(score == totalScore){
+
+                resultMessage.innerHTML =
+                "🏆 عالی بود! تو قهرمان ریاضی ایران هستی. 🇮🇷";
+
+            }else if(score >= 8){
+
+                resultMessage.innerHTML =
+                "🥇 آفرین! عملکردت خیلی خوب بود.";
+
+            }else{
+
+                resultMessage.innerHTML =
+                "🌸 تلاش خوبی کردی، دوباره امتحان کن.";
+
+            }
+        }
+
+    }, 800);
+}
 }

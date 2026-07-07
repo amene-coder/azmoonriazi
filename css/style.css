@@ -140,11 +140,11 @@ button{
 }
 .answerBtn{
 
-    width:85%;
+    width:92%;
 
-    max-width:500px;
+    max-width:520px;
 
-    padding:15px;
+    padding:18px;
 
     margin:10px auto;
 
@@ -170,24 +170,22 @@ button{
 
 }
 
-.answer1{background:#1dcf23;}
+.answer1{background:#eca0e0;}
 
-.answer2{background:#f4f6f7;}
+.answer2{background:#eca0e0;}
 
-.answer3{background:#f8f7f6;}
+.answer3{background:#eca0e0;}
 
-.answer4{background:#e91b0d;}
+.answer4{background:#eca0e0;}
 .quizHeader{
 
     display:flex;
 
+    justify-content:space-between;
+
     align-items:center;
 
-    justify-content:center;
-
-    gap:20px;
-
-    margin-bottom:20px;
+    margin-bottom:15px;
 
 }
 
@@ -296,7 +294,7 @@ backdrop-filter:blur(3px);
 
     margin-bottom:15px;
 
-    font-size:24px;
+    font-size:26px;
 
     cursor:pointer;
 
@@ -313,4 +311,59 @@ backdrop-filter:blur(3px);
 
     border:3px solid orange;
 
+}
+.leftItem{
+    direction: rtl;
+    text-align: right;
+    unicode-bidi: plaintext;
+}
+
+.smallAnswerBtn{
+    padding: 4px 8px;
+    font-size: 14px;
+    min-width: 60px;
+}
+
+/* فقط برای سوال‌های 11 به بعد (ستون راست) */
+#rightColumn{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+#rightColumn button{
+    width: 100%;
+    padding: 18px;
+    font-size: 34px; 
+    border-radius: 12px;
+    box-sizing: border-box;
+}
+
+#leftColumn .leftItem{
+    text-align: center;
+}
+
+.correctAnswer{
+    background: #4CAF50 !important;
+    color: white;
+}
+
+.wrongAnswer{
+    background: #F44336 !important;
+    color: white;
+}
+
+.examBanner {
+    width: 100%;
+    max-width: 900px;
+    height: 180px;
+    object-fit: fill;
+    display: block;
+    margin: 0 auto 15px auto;
+}
+.examTitle {
+    font-size: 20px;
+}
+.designer {
+    font-size: 15px;
 }
