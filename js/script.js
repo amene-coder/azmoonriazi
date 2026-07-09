@@ -41,7 +41,7 @@ answer:0
 },
 
 {
-question:"مدرسه‌ی میناب ۱۶۸ دانش‌آموز دارد. این عدد به کدام عدد نزدیک‌تر است؟",
+question:"مدرسه‌ی میناب ۱۶۸ دانش‌آموز دارد. این عدد به کدام عدد زیر نزدیک‌تر است؟",
 options:["۱۶۰","۱۸۰","۱۷۰","۲۰۰"],
 answer:2
 },
@@ -71,14 +71,14 @@ answer:0
 },
 
 {
-question:"پدر علی ۹ گوسفند داشت، او ۲ گوسفند را فروخت و ۴ گوسفند دیگر خرید. حالا پدر علی چند گوسفند دارد؟",
+question:"  یک دامدار ۹ گوسفند داشت. او ۲ گوسفند را فروخت و ۴ گوسفند دیگر خرید. حالا او چند گوسفند دارد؟",
 options:["۱۵","۱۱","۳","۶"],
 answer:1
 },
 
 {
-question:"در یک پاکت ۶ پرتقال و ۳ کیوی وجود دارد. شانس بیرون آمدن کدام بیشتر است؟",
-options:["پرتقال","کیوی","برابر","هیچ‌کدام"],
+question:"در یک کیسه ۶ پرتقال و ۳ کیوی  است. اگر بدون نگاه کردن به کیسه، یک میوه برداریم، شانس بیرون آمدن کدام میوه بیشتر است؟",
+options:["پرتقال","کیوی"," شانس برابر دارند ","هیچ‌کدام"],
 answer:0
 },
 
@@ -171,6 +171,11 @@ function toPersianNumber(num){
 function showQuestion() {
 
     let q = questions[currentQuestion];
+    if(!q.options){
+    quizBox.classList.add("dragQuestion");
+}else{
+    quizBox.classList.remove("dragQuestion");
+}
     solvedPairs = [];
 selectedLeft = -1;
 progressFill.style.width = ((currentQuestion) / questions.length * 100) + "%";
@@ -254,23 +259,27 @@ function checkAnswer(index){
             " از " +
             toPersianNumber(totalScore);
 
-            if(score == questions.length){
+            if(score >= 16){
 
-                resultMessage.innerHTML =
-                "🏆 عالی بود! تو قهرمان ریاضی ایران هستی. 🇮🇷";
+    resultMessage.innerHTML =
+    "🏆 آفرین! عملکردت خیلی خوب بود، قهرمان کوچک ایران‌زمین. 🇮🇷";
 
-            }else if(score >= 8){
+}else if(score >= 12){
 
-                resultMessage.innerHTML =
-                "🥇 آفرین! عملکردت خیلی خوب بود.";
+    resultMessage.innerHTML =
+    "🌟 آفرین! عملکردت خوب بود. با کمی تمرین، نتیجه‌ی  بهتری  می گیری.";
 
-            }else{
+}else if(score >= 8){
 
-                resultMessage.innerHTML =
-                "🌸 تلاش خوبی کردی، دوباره امتحان کن تا ستاره بیشتری بگیری.";
+    resultMessage.innerHTML =
+    "🌸 تلاش خوبی کردی. با تمرین بیشتر، ریاضی برایت آسان‌تر و شیرین‌تر می‌شود.";
 
-            }
+}else{
 
+    resultMessage.innerHTML =
+    "❤️  تو می توانی! با تمرین و تلاش، دفعه ی بعد ستاره‌های بیشتری می‌گیری.";
+
+}
         }
 
     },1200);
@@ -429,22 +438,27 @@ wrongSound.play();
             " از " +
             toPersianNumber(totalScore);
 
-            if(score == totalScore){
+           if(score >= 16){
 
-                resultMessage.innerHTML =
-                "🏆 عالی بود! تو قهرمان ریاضی ایران هستی. 🇮🇷";
+    resultMessage.innerHTML =
+    "🏆 آفرین! عملکردت خیلی خوب بود، قهرمان کوچک ایران‌زمین. 🇮🇷";
 
-            }else if(score >= 8){
+}else if(score >= 12){
 
-                resultMessage.innerHTML =
-                "🥇 آفرین! عملکردت خیلی خوب بود.";
+    resultMessage.innerHTML =
+    "🌟 آفرین! عملکردت خوب بود. با کمی تمرین، نتیجه‌ی بهتری  می گیری.";
 
-            }else{
+}else if(score >= 8){
 
-                resultMessage.innerHTML =
-                "🌸 تلاش خوبی کردی، دوباره امتحان کن.";
+    resultMessage.innerHTML =
+    "🌸 تلاش خوبی کردی. با تمرین بیشتر، ریاضی برایت آسان‌تر و شیرین‌تر می‌شود.";
 
-            }
+}else{
+
+    resultMessage.innerHTML =
+    "❤️ تو می‌توانی! با تمرین و تلاش، دفعه ی بعد ستاره‌های بیشتری می‌گیری.";
+
+}
         }
 
     }, 800);

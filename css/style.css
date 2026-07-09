@@ -28,7 +28,7 @@ background-repeat:no-repeat;
     width:90%;
     max-width:650px;
 
-   background:rgba(163, 247, 53, 0.92);
+   background:rgba(187, 250, 104, 0.92);
 backdrop-filter:blur(3px);
     border-radius:25px;
 
@@ -144,7 +144,7 @@ button{
 
     max-width:520px;
 
-    padding:18px;
+    padding:16px;
 
     margin:10px auto;
 
@@ -366,4 +366,8 @@ backdrop-filter:blur(3px);
 }
 .designer {
     font-size: 15px;
+}
+.dragQuestion{
+    padding-left: 12px !important;
+    padding-right: 12px !important;
 }
